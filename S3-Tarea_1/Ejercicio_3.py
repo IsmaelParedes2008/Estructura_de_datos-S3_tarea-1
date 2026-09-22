@@ -27,18 +27,6 @@ class Carro_compra:
     def Agregar_articulo(self, nombre, precio):
         self.carrito_diccionario[nombre] = precio
 
-    def agregar_multiples(self, lista_articulos):
-        for i in lista_articulos:
-
-            partes = i.split(":")
-            
-            if len(partes) == 2:
-                nombre = partes[0]
-                precio = float(partes[1])
-                
-                self.Agregar_articulo(nombre, precio)
-
-
     def Total_carrito(self):
         sum = 0
 
@@ -76,37 +64,13 @@ while True:
             resultado.Agregar_articulo(nombre, precio)
             print(f"¡Se realizó con éxito el registro de {nombre}!")
 
-   #     case "1":
-   #         print("\n--- REGISTRO DE PRODUCTOS ---")
-   #         print("A. Registrar un solo producto")
-   #         print("B. Registrar lote de productos")
-   #         sub_opcion = input("Elija una opción (A/B): ").upper()
-#
-   #         if sub_opcion == "A":
-   #             nombre = input("Ingrese el nombre del producto: ")
-   #             precio = float(input("Ingrese el precio del producto: "))
-   #             resultado.Agregar_articulo(nombre, precio)
-   #             print(f"¡Se realizó con éxito el registro de {nombre}!")
-#
-   #         elif sub_opcion == "B":
-   #             entrada = input("Ingrese los productos en formato nombre:precio separados por espacios\n(Ejemplo: pan:2.50 leche:3.00 queso:4.00):\n> ")
-   #             
-   #             lote_texto = entrada.split()
-   #         
-   #             resultado.agregar_multiples(lote_texto)
-   #             print("¡Lote de productos registrado con éxito!")
-   #         
-   #         else:
-   #             print("Opción inválida.")
-#
-
         case "2":
             total = resultado.Total_carrito()
             print(f"El valor total del carrito es: ${total}")
 
         case "3":
-            precioMi = int(input("Ingrese el percio minimo a filtrar: "))
-            precioMa = int(input("Ingrese el precio maximo a filtrar: "))
+            precioMi = int(float("Ingrese el percio minimo a filtrar: "))
+            precioMa = int(float("Ingrese el precio maximo a filtrar: "))
 
             resultado_rango = resultado.Articulo_rango(precioMi, precioMa)
             print(f"Productos en ese rango de precio: {resultado_rango}")
@@ -116,6 +80,100 @@ while True:
 
         case "5":
             print("===CERRANDO PROGRAMA===")
+            break
+
+        case _:
+            print("Opcion invalida.")
+
+
+#EJERCICIO SIMILAR
+"""Gestor de calificaciones
+
+Crear una clase RegistroCalificaciones que:
+
+Tenga un método agregar_estudiante(nombre, nota) que guarde en un diccionario:
+
+nombre → nota
+Tenga un método promedio_notas() que retorne el promedio de todas las notas registradas.
+Tenga un método estudiantes_por_rango(nota_min, nota_max) que retorne una lista con los nombres de los estudiantes cuyas notas estén dentro del rango indicado.
+Entrada
+
+Nombres de estudiantes y sus notas.
+
+Proceso
+
+Guardar en un diccionario, sumar las notas, calcular promedio y filtrar estudiantes por rango.
+
+Salida
+Promedio de las notas.
+Estudiantes que estén dentro de un rango de notas."""
+
+class RegistroCalificaciones:
+    def __init__(self):
+        self.estudiantes = {}
+
+    def agregar_estudiante(self, nombre, nota):
+        self.estudiantes[nombre] = nota
+
+    def promedio_notas(self):
+        if len(self.estudiantes) == 0:
+            return 0
+
+        suma = 0
+
+        for i in self.estudiantes.values():
+            suma += i
+
+        return suma / len(self.estudiantes)
+
+    def estudiantes_por_rango(self, nota_min, nota_max):
+        lista = []
+
+        for nombre, nota in self.estudiantes.items():
+            if nota_min <= nota <= nota_max:
+                lista.append(nombre)
+
+        return lista
+
+resultado = RegistroCalificaciones()
+
+while True:
+    print("\n=== MENU DE REGISTRO DE CALIFICACIONES ===")
+    print("1. Registrar estudiante")
+    print("2. Ver promedio de notas")
+    print("3. Filtrar estudiantes por rango")
+    print("4. Ver estudiantes registrados")
+    print("5. Salir")
+
+    opcion = input("Ingrese una opcion (1-5): ")
+
+    match opcion:
+
+        case "1":
+            nombre = input("Ingrese el nombre del estudiante: ")
+            nota = float(input("Ingrese la nota del estudiante: "))
+
+            resultado.agregar_estudiante(nombre, nota)
+
+            print(f"Estudiante {nombre} registrado con exito.")
+
+        case "2":
+            promedio = resultado.promedio_notas()
+            print(f"El promedio de las notas es: {promedio}")
+
+        case "3":
+            nota_min = float(input("Ingrese la nota minima: "))
+            nota_max = float(input("Ingrese la nota maxima: "))
+
+            estudiantes_rango = resultado.estudiantes_por_rango(nota_min, nota_max)
+
+            print(f"Estudiantes dentro del rango: {estudiantes_rango}")
+
+        case "4":
+            print(f"Estudiantes registrados: {resultado.estudiantes}")
+
+        case "5":
+            print("=== CERRANDO PROGRAMA ===")
             break
 
         case _:
