@@ -77,5 +77,87 @@ while True:
             print("Opcion invalida.")
 
 
+#EJERCICIO SIMILAR
+"""### ENUNCIADO
+
+Crear una clase `Gestor_Ventas` que permita:
+
+1. Registrar una venta y varias ventas usando `*args`.
+2. Obtener las ventas mayores a un límite.
+3. Calcular el total y la cantidad de ventas.
+4. Mostrar los resultados mediante un menú.
+
+**Ejemplo:**
+Ventas: `50, 200, 80, 500`
+Límite: `100`
+Resultado: `[200, 500]`
+
+### CÓDIGO
+
+```python"""
+
+class Gestor_Ventas:
+    def __init__(self):
+        self.ventas = []
+
+    def registrar_venta(self, venta):
+        self.ventas.append(venta)
+
+    def registrar_varias(self, *args):
+        for i in args:
+            self.registrar_venta(i)
+
+    def ventas_mayores(self, limite):
+        lista = []
+        for i in self.ventas:
+            if i > limite:
+                lista.append(i)
+        return lista
+
+    def total_ventas(self):
+        return sum(self.ventas)
+
+    def cantidad_ventas(self):
+        return len(self.ventas)
+
+
+resultado = Gestor_Ventas()
+
+while True:
+    print("\n=== GESTOR DE VENTAS ===")
+    print("1. Registrar ventas")
+    print("2. Ventas mayores a un límite")
+    print("3. Total de ventas")
+    print("4. Cantidad de ventas")
+    print("5. Ver historial")
+    print("6. Salir")
+
+    opcion = input("Opción: ")
+
+    match opcion:
+        case "1":
+            entrada = input("Ingrese ventas separadas por espacio o coma: ")
+            ventas = [float(i) for i in entrada.replace(",", " ").split()]
+            resultado.registrar_varias(*ventas)
+
+        case "2":
+            limite = float(input("Ingrese el límite: "))
+            print(resultado.ventas_mayores(limite))
+
+        case "3":
+            print(f"Total: {resultado.total_ventas()}")
+
+        case "4":
+            print(f"Cantidad: {resultado.cantidad_ventas()}")
+
+        case "5":
+            print(f"Historial: {resultado.ventas}")
+
+        case "6":
+            break
+
+        case _:
+            print("Opción inválida.")
+```
 
 
