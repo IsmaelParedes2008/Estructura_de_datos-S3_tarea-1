@@ -79,3 +79,78 @@ while True:
 
         case _:
             print("Opcion invalida.")
+
+
+
+#EJERCCICIO SIMILAR:
+class ValidadorEdades:
+    def __init__(self):
+        self.historial_edades = []
+
+    def validar_edad(self, edad):
+        if 1 <= edad <= 100:
+            return True
+        else:
+            return False
+
+    def cargar_edades(self, *args):
+        edades_validas = []
+
+        for edad in args:
+            if self.validar_edad(edad):
+                self.historial_edades.append(edad)
+                edades_validas.append(edad)
+
+        return edades_validas
+
+    def promedio(self):
+        if len(self.historial_edades) == 0:
+            return 0.0
+
+        suma = 0
+
+        for edad in self.historial_edades:
+            suma += edad
+
+        total_edades = len(self.historial_edades)
+
+        return suma / total_edades
+
+
+resultado = ValidadorEdades()
+
+while True:
+    print("\n=== MENU DEL VALIDADOR DE EDADES ===")
+    print("1. Registrar edades")
+    print("2. Ver promedio")
+    print("3. Ver historial")
+    print("4. Salir")
+
+    opcion = input("Ingrese una opcion (1-4): ")
+
+    match opcion:
+        case "1":
+            entrada = input("Ingrese edades separadas por espacios o comas: ")
+
+            edades_texto = entrada.replace(",", " ").split()
+
+            lista_edades = [int(i) for i in edades_texto]
+
+            edades_validas = resultado.cargar_edades(*lista_edades)
+
+            print(f"Edades validas ingresadas: {edades_validas}")
+
+        case "2":
+            valor_promedio = resultado.promedio()
+
+            print(f"El promedio de las edades es: {valor_promedio}")
+
+        case "3":
+            print(f"Historial de edades validas: {resultado.historial_edades}")
+
+        case "4":
+            print("=== SALIENDO ===")
+            break
+
+        case _:
+            print("Opcion invalida.")
