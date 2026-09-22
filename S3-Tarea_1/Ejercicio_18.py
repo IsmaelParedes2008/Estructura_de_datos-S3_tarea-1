@@ -97,3 +97,115 @@ while True:
 
         case _:
             print("Opción inválida. Intente de nuevo.")
+
+#EJERCICIO SIMILAR
+"""Matriz de tiempos
+
+Clase CalculadorTiempo que:
+
+Tenga un método tiempo_transcurrido(p1, p2) que reciba dos tuplas (hora, minuto) y calcule los minutos transcurridos entre ambos horarios.
+Tenga un método horario_mas_cercano(referencia, *horarios) que reciba un horario de referencia y varios horarios, y retorne el horario que tenga menor diferencia de tiempo con la referencia.
+Tenga un atributo tipo lista para guardar todos los tiempos calculados.
+Entrada
+
+Tuplas (hora, minuto) como horarios.
+
+Proceso
+Convertir los horarios a minutos.
+Calcular la diferencia.
+Comparar las diferencias.
+Guardar los resultados en la lista.
+Salida
+Tiempo transcurrido.
+Horario más cercano."""
+
+class CalculadorTiempo:
+    def __init__(self):
+        self.historial_tiempos = []
+
+    def tiempo_transcurrido(self, p1, p2):
+        h1, m1 = p1
+        h2, m2 = p2
+
+        tiempo = abs((h2 * 60 + m2) - (h1 * 60 + m1))
+
+        self.historial_tiempos.append(tiempo)
+
+        return tiempo
+
+    def punto_mas_cercano(self, referencia, *horarios):
+        if len(horarios) == 0:
+            return None
+
+        horario_cercano = None
+        menor_tiempo = float('inf')
+
+        for i in horarios:
+            tiempo_actual = self.tiempo_transcurrido(referencia, i)
+
+            if tiempo_actual < menor_tiempo:
+                menor_tiempo = tiempo_actual
+                horario_cercano = i
+
+        return horario_cercano
+
+resultado = CalculadorTiempo()
+
+while True:
+    print("\n=== CALCULADOR DE TIEMPOS ===")
+    print("1. Calcular tiempo entre dos horarios")
+    print("2. Buscar horario más cercano")
+    print("3. Ver historial de tiempos")
+    print("4. Salir")
+
+    opcion = input("Ingrese una opción (1-4): ")
+
+    match opcion:
+        case "1":
+            print("\n--- HORARIO 1 ---")
+            h1 = int(input("Ingrese la hora: "))
+            m1 = int(input("Ingrese los minutos: "))
+
+            print("--- HORARIO 2 ---")
+            h2 = int(input("Ingrese la hora: "))
+            m2 = int(input("Ingrese los minutos: "))
+
+            horario1 = (h1, m1)
+            horario2 = (h2, m2)
+
+            tiempo = resultado.tiempo_transcurrido(horario1, horario2)
+
+            print(f"\nTiempo transcurrido: {tiempo} minutos")
+
+        case "2":
+            print("\n--- HORARIO DE REFERENCIA ---")
+            h = int(input("Ingrese la hora: "))
+            m = int(input("Ingrese los minutos: "))
+
+            referencia = (h, m)
+
+            n = int(input("\n¿Cuántos horarios desea comparar?: "))
+            lista_horarios = []
+
+            for i in range(n):
+                print(f"\n--- Horario {i + 1} ---")
+                hora = int(input("Ingrese la hora: "))
+                minuto = int(input("Ingrese los minutos: "))
+
+                lista_horarios.append((hora, minuto))
+
+            cercano = resultado.horario_mas_cercano(
+                referencia, *lista_horarios
+            )
+
+            print(f"\nEl horario más cercano es: {cercano}")
+
+        case "3":
+            print(f"\nHistorial de tiempos: {resultado.historial_tiempos}")
+
+        case "4":
+            print("=== CERRANDO EL PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida.")
