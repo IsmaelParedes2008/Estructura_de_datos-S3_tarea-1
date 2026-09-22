@@ -67,4 +67,70 @@ while True:
         case _:
             print("Opción inválida. Intente de nuevo.")
 
-         
+#EJERCICIO SIMILAR
+"""Codificador de números
+Clase CodificadorNumeros que:
+Tenga un método codificar_numero(numero, desplazamiento) que retorne el número desplazado utilizando el operador %.
+Tenga un método codificar_lista(lista, desplazamiento) que reutilice codificar_numero() para codificar todos los números de una lista.
+Tenga un diccionario como atributo para guardar un historial de las codificaciones realizadas.
+
+Entrada:
+Número/lista de números y desplazamiento.
+
+Proceso:
+Desplazar cada número utilizando % y guardar el resultado en el historial.
+
+Salida:
+Lista de números codificados."""
+
+class CodificadorNumeros:
+    def __init__(self):
+        self.historial = {}
+
+    def codificar_numero(self, numero, desplazamiento):
+        nuevo_numero = (numero + desplazamiento) % 100
+        return nuevo_numero
+
+    def codificar_lista(self, lista, desplazamiento):
+        lista_codificada = []
+
+        for i in lista:
+            nuevo = self.codificar_numero(i, desplazamiento)
+            lista_codificada.append(nuevo)
+
+        self.historial[str(lista)] = lista_codificada
+
+        return lista_codificada
+
+resultado = CodificadorNumeros()
+
+while True:
+    print("\n=== MENU DEL CODIFICADOR DE NUMEROS ===")
+    print("1. Codificar una lista")
+    print("2. Ver historial de codificaciones")
+    print("3. Salir")
+
+    opcion = input("Ingrese una opción (1-3): ")
+
+    match opcion:
+        case "1":
+            entrada = input("Ingrese los números separados por espacios o comas: ")
+            
+            texto = entrada.replace(",", " ").split()
+            lista = [int(i) for i in texto]
+
+            desplazamiento = int(input("Ingrese el desplazamiento: "))
+
+            resultado_codificado = resultado.codificar_lista(lista, desplazamiento)
+
+            print(f"\nLista codificada: {resultado_codificado}")
+
+        case "2":
+            print(f"\nHistorial: {resultado.historial}")
+
+        case "3":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida.")
