@@ -90,3 +90,96 @@ while True:
 
         case _:
             print("Opción inválida. Intente de nuevo.")
+
+#EJERCICIO SIMILAR
+"""Almacen
+
+Clase Almacen que:
+
+Tenga un método agregar_unidades(producto, cantidad) que guarde o aumente la cantidad de un producto en un diccionario.
+Tenga un método retirar_unidades(producto, cantidad) que disminuya la cantidad disponible y retorne True si hay suficientes unidades. Si no hay suficientes o el producto no existe, debe retornar False.
+Tenga un método productos_agotados(maximo) que retorne una lista con los productos cuya cantidad sea menor que el máximo indicado.
+Entrada
+
+Productos y cantidades.
+
+Proceso
+
+Guardar/actualizar el diccionario, validar cantidades y filtrar productos.
+
+Salida
+
+True/False y lista de productos."""
+
+class Almacen:
+    def __init__(self):
+        self.productos = {}
+
+    def agregar_unidades(self, producto, cantidad):
+        if producto in self.productos:
+            self.productos[producto] += cantidad
+        else:
+            self.productos[producto] = cantidad
+
+    def retirar_unidades(self, producto, cantidad):
+        if producto in self.productos and self.productos[producto] >= cantidad:
+            self.productos[producto] -= cantidad
+            return True
+        else:
+            return False
+
+    def productos_agotados(self, maximo):
+        lista = []
+
+        for producto, cantidad in self.productos.items():
+            if cantidad < maximo:
+                lista.append(producto)
+
+        return lista
+
+resultado = Almacen()
+
+while True:
+    print("\n=== GESTOR DEL ALMACEN ===")
+    print("1. Agregar unidades")
+    print("2. Retirar unidades")
+    print("3. Ver productos con pocas unidades")
+    print("4. Ver todo el inventario")
+    print("5. Salir")
+
+    opcion = input("Ingrese una opción (1-5): ")
+
+    match opcion:
+        case "1":
+            producto = input("Ingrese el producto: ").lower()
+            cantidad = int(input("Ingrese la cantidad a agregar: "))
+
+            resultado.agregar_unidades(producto, cantidad)
+
+            print("Unidades agregadas correctamente.")
+
+        case "2":
+            producto = input("Ingrese el producto: ").lower()
+            cantidad = int(input("Ingrese la cantidad a retirar: "))
+
+            if resultado.retirar_unidades(producto, cantidad):
+                print("True - Retiro realizado correctamente.")
+            else:
+                print("False - No hay suficientes unidades o el producto no existe.")
+
+        case "3":
+            limite = int(input("Ingrese el máximo de unidades para la alerta: "))
+
+            productos = resultado.productos_agotados(limite)
+
+            print(f"Productos con menos de {limite} unidades: {productos}")
+
+        case "4":
+            print(f"Inventario completo: {resultado.productos}")
+
+        case "5":
+            print("=== CERRANDO EL ALMACEN ===")
+            break
+
+        case _:
+            print("Opción inválida.")
