@@ -83,6 +83,19 @@ while True:
 
 
 #EJERCCICIO SIMILAR:
+
+"""Validador de edades
+
+Enunciado:
+
+Crear una clase ValidadorEdades que:
+
+Tenga un método validar_edad(edad) que retorne True si la edad está entre 1 y 100, y False en caso contrario.
+Tenga un método cargar_edades(*args) que reciba varias edades, valide cada una y agregue solamente las válidas a una lista interna.
+cargar_edades() debe retornar una lista con las edades válidas ingresadas en esa carga.
+Tenga un método promedio() que calcule el promedio de todas las edades válidas almacenadas.
+Tenga un atributo historial_edades que guarde todas las edades válidas ingresadas."""
+
 class ValidadorEdades:
     def __init__(self):
         self.historial_edades = []
