@@ -89,3 +89,99 @@ while True:
 
         case _:
             print("Opción inválida. Intente de nuevo.")
+
+#EJERCICIO SIMILAR
+"""Múltiplos de un número
+
+Clase MultiploFinder que:
+
+Tenga un método encontrar_multiplos(numero, limite) que retorne una tupla con todos los múltiplos del número hasta el límite indicado.
+Tenga un método es_multiplo(numero, valor) que retorne True si valor es múltiplo de numero.
+Tenga un método encontrar_multiples_numeros(*numeros) que retorne un diccionario {número: tupla_multiplos}.
+
+Entrada:
+Uno o varios números.
+
+Proceso:
+Encontrar múltiplos mediante ciclos y verificar si un número es múltiplo de otro.
+
+Salida:
+Tuplas, booleano y diccionario."""
+
+class MultiploFinder:
+    def __init__(self):
+        pass
+
+    def encontrar_multiplos(self, numero, limite):
+        lista_multiplos = []
+
+        for i in range(1, limite + 1):
+            if i % numero == 0:
+                lista_multiplos.append(i)
+
+        return tuple(lista_multiplos)
+
+    def es_multiplo(self, numero, valor):
+        if valor % numero == 0:
+            return True
+        else:
+            return False
+
+    def encontrar_multiples_numeros(self, *numeros):
+        diccionario_multiplos = {}
+
+        for numero in numeros:
+            limite = int(input(f"Ingrese el límite para {numero}: "))
+
+            lista = self.encontrar_multiplos(numero, limite)
+
+            diccionario_multiplos[numero] = lista
+
+        return diccionario_multiplos
+
+resultado = MultiploFinder()
+
+while True:
+    print("\n=== FINDER DE MÚLTIPLOS ===")
+    print("1. Encontrar múltiplos de un número")
+    print("2. Verificar si un número es múltiplo de otro")
+    print("3. Encontrar múltiples números a la vez")
+    print("4. Salir")
+
+    opcion = input("Ingrese una opción (1-4): ")
+
+    match opcion:
+        case "1":
+            numero = int(input("Ingrese el número: "))
+            limite = int(input("Ingrese el límite: "))
+
+            multiplos = resultado.encontrar_multiplos(numero, limite)
+
+            print(f"Múltiplos de {numero} hasta {limite}: {multiplos}")
+
+        case "2":
+            numero = int(input("Ingrese el número base: "))
+            valor = int(input("Ingrese el valor a comprobar: "))
+
+            if resultado.es_multiplo(numero, valor):
+                print(f"{valor} SÍ es múltiplo de {numero}.")
+            else:
+                print(f"{valor} NO es múltiplo de {numero}.")
+
+        case "3":
+            entrada = input("Ingrese los números separados por espacios o comas: ")
+            texto = entrada.replace(",", " ").split()
+
+            lista_numeros = [int(i) for i in texto]
+
+            resultado_diccionario = resultado.encontrar_multiples_numeros(*lista_numeros)
+
+            print("\nDiccionario de múltiplos:")
+            print(resultado_diccionario)
+
+        case "4":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida. Intente de nuevo.")
