@@ -78,3 +78,102 @@ while True:
 
         case _:
             print("Opción inválida. Intente de nuevo.")
+
+#EJERCICIO SIMILAR
+"""Analizador de productos
+
+Clase AnalizadorProductos que:
+
+Tenga un método buscar_productos(texto, patron) que busque productos que empiecen con el patrón y retorne una lista.
+Tenga un método agrupar_por_longitud(texto) que retorne un diccionario con la estructura:
+{longitud: [productos]}
+Tenga un método productos_unicos(texto) que utilice un conjunto (set) para eliminar productos repetidos.
+Entrada
+
+Texto con nombres de productos y patrón de búsqueda.
+
+Proceso
+Usar split().
+Filtrar productos con startswith().
+Agrupar por longitud.
+Eliminar duplicados con set.
+Salida
+
+Lista de coincidencias, diccionario agrupado y conjunto de productos únicos."""
+class AnalizadorProductos:
+    def __init__(self):
+        pass
+
+    def buscar_productos(self, texto, patron):
+        lista_coincidencias = []
+
+        productos = texto.split()
+
+        for i in productos:
+            if i.startswith(patron):
+                lista_coincidencias.append(i)
+
+        return lista_coincidencias
+
+    def agrupar_por_longitud(self, texto):
+        diccionario_tamaños = {}
+
+        productos = texto.split()
+
+        for i in productos:
+            largo = len(i)
+
+            if largo in diccionario_tamaños:
+                diccionario_tamaños[largo].append(i)
+            else:
+                diccionario_tamaños[largo] = [i]
+
+        return diccionario_tamaños
+
+    def productos_unicos(self, texto):
+        productos = texto.split()
+
+        conjunto_limpio = set(productos)
+
+        return conjunto_limpio
+        
+resultado = AnalizadorProductos()
+
+while True:
+    print("\n=== GESTOR DE PRODUCTOS ===")
+    print("1. Buscar productos que inicien con un patrón")
+    print("2. Agrupar productos por longitud")
+    print("3. Ver productos únicos")
+    print("4. Salir")
+
+    opcion = input("Ingrese una opción (1-4): ")
+
+    match opcion:
+        case "1":
+            texto = input("Ingrese los productos: ")
+            patron = input("Ingrese el patrón: ")
+
+            coincidencias = resultado.buscar_productos(texto, patron)
+
+            print(f"\nProductos que inician con '{patron}': {coincidencias}")
+
+        case "2":
+            texto = input("Ingrese los productos: ")
+
+            agrupados = resultado.agrupar_por_longitud(texto)
+
+            print(f"\nProductos agrupados: {agrupados}")
+
+        case "3":
+            texto = input("Ingrese los productos: ")
+
+            unicos = resultado.productos_unicos(texto)
+
+            print(f"\nProductos únicos: {unicos}")
+
+        case "4":
+            print("=== CERRANDO EL ANALIZADOR ===")
+            break
+
+        case _:
+            print("Opción inválida.")
