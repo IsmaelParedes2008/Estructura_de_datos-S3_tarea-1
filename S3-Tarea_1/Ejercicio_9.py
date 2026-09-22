@@ -76,5 +76,76 @@ while True:
         case _:
             print("Opción inválida. Intente de nuevo.")
         
+#EJERCICIO SIMILAR.
+"""Analizador de números
 
+Crear una clase AnalizadorNumeros que:
+
+es_par(numero) → retorne True si el número es par.
+
+contar_por_tipo(*numeros) → retorne un diccionario:
+
+{'pares': cant, 'impares': cant, 'positivos': cant}
+Tenga un atributo que guarde la secuencia con más números analizada."""
+
+class AnalizadorNumeros:
+    def __init__(self):
+        self.secuencia_mayor = []
+
+    def es_par(self, numero):
+        if numero % 2 == 0:
+            return True
+        else:
+            return False
+
+    def contar_por_tipo(self, *numeros):
+        diccionario = {
+            "pares": 0,
+            "impares": 0,
+            "positivos": 0
+        }
+
+        if len(numeros) > len(self.secuencia_mayor):
+            self.secuencia_mayor = list(numeros)
+
+        for i in numeros:
+            if self.es_par(i):
+                diccionario["pares"] += 1
+            else:
+                diccionario["impares"] += 1
+
+            if i > 0:
+                diccionario["positivos"] += 1
+
+        return diccionario
+
+resultado = AnalizadorNumeros()
+
+while True:
+    print("\n=== ANALIZADOR DE NUMEROS ===")
+    print("1. Analizar números")
+    print("2. Ver secuencia más larga")
+    print("3. Salir")
+
+    opcion = input("Ingrese una opción (1-3): ")
+
+    match opcion:
+        case "1":
+            entrada = input("Ingrese números separados por espacio o coma: ")
+            numeros_texto = entrada.replace(",", " ").split()
+            numeros = [int(i) for i in numeros_texto]
+
+            resultado_conteo = resultado.contar_por_tipo(*numeros)
+            print(f"Resultado: {resultado_conteo}")
+
+        case "2":
+            print(f"Secuencia más larga: {resultado.secuencia_mayor}")
+            print(f"Cantidad de números: {len(resultado.secuencia_mayor)}")
+
+        case "3":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida.")
     
