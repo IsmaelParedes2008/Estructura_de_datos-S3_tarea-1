@@ -81,3 +81,91 @@ while True:
 
         case _:
             print("Opcion invalida.")
+
+
+#EJERCICIO SIMILAR
+
+"""Crea una clase:
+
+SeparadorNumeros
+
+Debe tener:
+
+1. separar_lista(lista)
+
+Recibe una lista de números y debe devolver dos listas:
+
+una con números pares
+otra con números impares"""
+class SeparadorNumeros:
+    def __init__(self):
+        pass
+
+    def separar_lista(self, lista):
+        pares = []
+        impares = []
+
+        for i in lista:
+            if i % 2 == 0:
+                pares.append(i)
+            else:
+                impares.append(i)
+
+        return [pares, impares]
+
+    def separar_multiples(self, *listas):
+        diccionario = {}
+
+        for i in listas:
+            resultado = self.separar_lista(i)
+            tupla = tuple(i)
+            diccionario[tupla] = resultado
+
+        return diccionario
+
+resultado = SeparadorNumeros()
+
+while True:
+    print("\n=== SEPARADOR DE NUMEROS ===")
+    print("1. Separar una sola lista")
+    print("2. Separar multiples listas")
+    print("3. Salir")
+
+    opcion = input("Seleccione una opcion (1-3): ")
+
+    match opcion:
+
+        case "1":
+            entrada = input("Ingrese los numeros separados por espacio o coma: ")
+            numeros = entrada.replace(",", " ").split()
+
+            lista_numeros = [int(x) for x in numeros]
+
+            resultado_simple = resultado.separar_lista(lista_numeros)
+
+            print(f"Pares: {resultado_simple[0]}")
+            print(f"Impares: {resultado_simple[1]}")
+
+        case "2":
+            n = int(input("¿Cuantas listas desea registrar?: "))
+
+            lista_de_lotes = []
+
+            for i in range(n):
+                entrada = input("Ingrese los numeros separados por espacio o coma: ")
+                numeros = entrada.replace(",", " ").split()
+
+                lote = [int(x) for x in numeros]
+
+                lista_de_lotes.append(lote)
+
+            resultado_diccionario = resultado.separar_multiples(*lista_de_lotes)
+
+            print(f"\nDiccionario final: {resultado_diccionario}")
+
+        case "3":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opcion invalida.")
