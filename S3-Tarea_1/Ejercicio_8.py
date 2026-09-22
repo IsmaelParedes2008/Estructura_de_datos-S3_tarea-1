@@ -31,18 +31,6 @@ class Equipos:
         else:
             print(f"Error: El equipo '{equipo}' no existe. Créalo primero.")
 
- #   def crear_multiples_equipos(self, lista_nombres):
- #       for i in lista_nombres:
- #           self.crear_equipo(i)
-#
- #   def agregar_lote_jugadores(self, equipo, lista_jugadores):
- #       if equipo in self.diccionario_jugador:
-#
- #           for i in lista_jugadores:
- #               self.diccionario_jugador[equipo].append(i)
- #       else:
- #           print(f"Error: El equipo '{equipo}' no existe. Créalo primero.")
-
     def mayor_integrantes(self):
         if len(self.diccionario_jugador) == 0:
             return 0
@@ -99,62 +87,74 @@ while True:
             print("Opción inválida. Intente de nuevo.")
 
 
+#EJERCICIO SIMILARES
+"""GRUPOS
 
+Crear una clase Grupos que:
 
+crear_grupo(nombre_grupo) → cree un grupo con una lista vacía en un diccionario.
+agregar_miembro(grupo, miembro) → agregue un miembro al grupo.
+grupo_mayor_miembros() → retorne el nombre del grupo que tenga más miembros."""
 
+class Grupos:
+    def __init__(self):
+        self.diccionario_miembros = {}
 
-            
+    def crear_grupo(self, nombre_grupo):
+        self.diccionario_miembros[nombre_grupo] = []
 
+    def agregar_miembro(self, grupo, miembro):
+        if grupo in self.diccionario_miembros:
+            self.diccionario_miembros[grupo].append(miembro)
+        else:
+            print(f"Error: El grupo '{grupo}' no existe.")
 
+    def grupo_mayor_miembros(self):
+        if len(self.diccionario_miembros) == 0:
+            return 0
 
+        nombre_grupo = ""
+        max_miembros = -1
 
+        for grupo, lista_miembros in self.diccionario_miembros.items():
+            if len(lista_miembros) > max_miembros:
+                max_miembros = len(lista_miembros)
+                nombre_grupo = grupo
 
+        return nombre_grupo
 
+resultado = Grupos()
 
+while True:
+    print("\n=== GRUPOS ===")
+    print("1. Crear grupo")
+    print("2. Agregar miembro")
+    print("3. Grupo con más miembros")
+    print("4. Ver grupos")
+    print("5. Salir")
 
+    opcion = input("Ingrese una opción: ")
 
- #case "1":
- #           print("\n--- CREACIÓN DE EQUIPOS ---")
- #           print("A. Crear un solo equipo")
- #           print("B. Crear múltiples equipos a la vez")
- #           sub_opcion = input("Elija una opción (A/B): ").upper()
-#
- #           if sub_opcion == "A":
- #               nombre_eq = input("Ingrese el nombre del equipo nuevo: ")
- #               resultado.crear_equipo(nombre_eq)
- #               print(f"¡Equipo '{nombre_eq}' creado con éxito!")
-#
- #           elif sub_opcion == "B":
- #               entrada = input("Ingrese los nombres de los equipos separados por espacios o comas\n(Ejemplo: A, B, Barcelona, Madrid):\n> ")
- #               # Limpiamos comas y separamos por espacios para tener una lista de nombres
- #               lote_equipos = entrada.replace(",", " ").split()
- #               
- #               resultado.crear_multiples_equipos(lote_equipos)
- #               print("¡Lote de equipos creado con éxito!")
- #           else:
- #               print("Opción inválida.")
+    match opcion:
+        case "1":
+            nombre = input("Ingrese el nombre del grupo: ")
+            resultado.crear_grupo(nombre)
+            print("Grupo creado correctamente.")
 
+        case "2":
+            grupo = input("Ingrese el grupo: ")
+            miembro = input("Ingrese el nombre del miembro: ")
+            resultado.agregar_miembro(grupo, miembro)
 
+        case "3":
+            print(f"Grupo con más miembros: {resultado.grupo_mayor_miembros()}")
 
-# case "2":
-#            print("\n--- ASIGNACIÓN DE JUGADORES ---")
-#            print("A. Agregar un solo jugador")
-#            print("B. Agregar lote de jugadores a un equipo")
-#            sub_opcion = input("Elija una opción (A/B): ").upper()
-#
-#            if sub_opcion == "A":
-#                nombre_eq = input("¿A qué equipo desea añadir el jugador?: ")
-#                nombre_jug = input("Ingrese el nombre del jugador: ")
-#                resultado.agregar_jugador(nombre_eq, nombre_jug)
-#                print(f"¡Jugador {nombre_jug} asignado con éxito!")
-#
-#            elif sub_opcion == "B":
-#                nombre_eq = input("¿A qué equipo desea añadir el lote de jugadores?: ")
-#                entrada = input("Ingrese los nombres de los jugadores separados por espacios o comas\n(Ejemplo: Juan, Pedro, Lucas, Mateo):\n> ")
-#                # Limpiamos comas y separamos por palabras
-#                lote_jugadores = entrada.replace(",", " ").split()
-#                
-#                resultado.agregar_lote_jugadores(nombre_eq, lote_jugadores)
-#                print(f"¡Lote de jugadores agregado con éxito al equipo {nombre_eq}!")
-#            else:
-#                print("Opción inválida.")
+        case "4":
+            print(resultado.diccionario_miembros)
+
+        case "5":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida.")
