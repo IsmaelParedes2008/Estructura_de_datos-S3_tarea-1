@@ -73,6 +73,10 @@ while True:
 
         case "3":
             print("===CERRANDO PROGRAMA===")
+            break
 
         case _:
             print("Opcion invalida.")
+
+
+#EJERCICIO SIMILAR
