@@ -28,19 +28,6 @@ class Selector_rango:
                     
         return tuple(lista)
 
-  #  def crear_multiples_rangos(self, *lista_rangos):
-  #      lista_de_tuplas_generadas = []
-  #      
-  #      for i in lista_rangos:
-  #          inicio = i[0]
-  #          fin = i[1]
-  #          
-  #          rango_tupla = self.crear_rango(inicio, fin)
-  #          
-  #          lista_de_tuplas_generadas.append(rango_tupla)
-  #          
-  #      return lista_de_tuplas_generadas
-
     def multiples_elementos(self, *lista_elementos):
         conjunto_limpio = set()
 
@@ -95,81 +82,78 @@ while True:
             print("Opción inválida. Intente de nuevo.")
 
 
+#EJERCICIO SIMILAR
+"""Selector de letras
 
+Crear una clase SelectorLetras que:
 
+crear_rango_letras(inicio, fin) → retorne una tupla con las letras del rango.
+letras_en_multiples_rangos(*rangos) → reciba varias tuplas y retorne una lista de letras sin duplicados usando un conjunto."""
 
+class SelectorLetras:
+    def __init__(self):
+        pass
 
+    def crear_rango_letras(self, inicio, fin):
+        lista = []
 
+        for i in range(ord(inicio), ord(fin) + 1):
+            lista.append(chr(i))
 
+        return tuple(lista)
 
+    def letras_en_multiples_rangos(self, *rangos):
+        conjunto = set()
 
+        for rango in rangos:
+            inicio = rango[0]
+            fin = rango[1]
 
+            letras = self.crear_rango_letras(inicio, fin)
 
+            for letra in letras:
+                conjunto.add(letra)
 
+        return sorted(list(conjunto))
 
+resultado = SelectorLetras()
 
+while True:
+    print("\n=== SELECTOR DE LETRAS ===")
+    print("1. Crear un rango de letras")
+    print("2. Combinar múltiples rangos")
+    print("3. Salir")
 
+    opcion = input("Ingrese una opción (1-3): ")
 
+    match opcion:
+        case "1":
+            inicio = input("Ingrese la letra inicial: ")
+            fin = input("Ingrese la letra final: ")
 
+            rango = resultado.crear_rango_letras(inicio, fin)
+            print(f"Rango creado: {rango}")
 
+        case "2":
+            n = int(input("¿Cuántos rangos desea combinar?: "))
+            lista_rangos = []
 
+            for i in range(n):
+                print(f"\n--- Rango {i + 1} ---")
+                inicio = input("Ingrese la letra inicial: ")
+                fin = input("Ingrese la letra final: ")
 
+                lista_rangos.append((inicio, fin))
 
+            resultado_final = resultado.letras_en_multiples_rangos(*lista_rangos)
+            print(f"Lista de letras sin repetirse: {resultado_final}")
 
+        case "3":
+            print("=== CERRANDO PROGRAMA ===")
+            break
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# case "1":
-#            print("\n--- CREACIÓN DE RANGOS ---")
-#            print("A. Crear un solo rango de números")
-#            print("B. Crear múltiples rangos de números")
-#            sub_opcion = input("Elija una opción (A/B): ").upper()
-#
-#            if sub_opcion == "A":
-#                ini = int(input("Ingrese el número de inicio: "))
-#                fin = int(input("Ingrese el número de fin: "))
-#                
-#                rango_tupla = resultado.crear_rango(ini, fin)
-#                print(f"\nTupla de números generada: {rango_tupla}")
-#
-#            elif sub_opcion == "B":
-#                n = int(input("¿Cuántos rangos independientes desea crear?: "))
-#                lista_de_pedidos = []
-#                
-#                for i in range(n):
-#                    print(f"\n--- Rango {i+1} ---")
-#                    ini = int(input("Ingrese el número de inicio: "))
-#                    fin = int(input("Ingrese the número de fin: "))
-#                    # Guardamos los límites como tupla temporal
-#                    lista_de_pedidos.append((ini, fin))
-#                
-#                # Desarmamos con '*' para que entre al *args del nuevo método
-#                resultado_lotes = resultado.crear_multiples_rangos(*lista_de_pedidos)
-#                print(f"\nLista de rangos generados independientemente: {resultado_lotes}")
-#            else:
-#                print("Opción inválida.")
-
-
-
-
-
-
+        case _:
+            print("Opción inválida.")
 
 
 
