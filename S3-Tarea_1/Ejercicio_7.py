@@ -118,3 +118,87 @@ while True:
             print("Opción inválida. Intente de nuevo.")   
 
 
+#EJERCICIO SIMILAR
+"""Gestor de Productos
+
+Este usa la misma estructura, pero cambiamos personas/edades por productos/precios.
+
+Enunciado corto
+
+Crear una clase GestorProductos que:
+
+Guarde nombre → precio en un diccionario.
+Tenga productos_mayores(precio_minimo) que retorne los nombres de productos cuyo precio sea >=.
+Tenga precio_promedio() que calcule el promedio de precios."""
+
+class Gestor_Productos:
+    def __init__(self):
+        self.productos = {}
+
+    def agregar_producto(self, nombre, precio):
+        self.productos[nombre] = precio
+
+    def productos_mayores(self, precio_minimo):
+        lista = []
+
+        for nombre, precio in self.productos.items():
+            if precio >= precio_minimo:
+                lista.append(nombre)
+
+        return lista
+
+    def precio_promedio(self):
+        if len(self.productos) == 0:
+            return 0.0
+
+        suma = 0
+
+        for precio in self.productos.values():
+            suma += precio
+
+        return suma / len(self.productos)
+
+resultado = Gestor_Productos()
+
+while True:
+    print("\n=== GESTOR DE PRODUCTOS ===")
+    print("1. Registrar producto")
+    print("2. Filtrar productos por precio")
+    print("3. Ver precio promedio")
+    print("4. Ver productos registrados")
+    print("5. Salir")
+
+    opcion = input("Ingrese una opción (1-5): ")
+
+    match opcion:
+        case "1":
+            nombre = input("Ingrese el nombre del producto: ")
+            precio = float(input("Ingrese el precio: "))
+
+            resultado.agregar_producto(nombre, precio)
+
+            print("Producto registrado con éxito.")
+
+        case "2":
+            limite = float(input("Ingrese el precio mínimo: "))
+
+            productos = resultado.productos_mayores(limite)
+
+            print(f"Productos con precio mayor o igual a {limite}: {productos}")
+
+        case "3":
+            promedio = resultado.precio_promedio()
+
+            print(f"El precio promedio es: {promedio:.2f}")
+
+        case "4":
+            print(f"Productos registrados: {resultado.productos}")
+
+        case "5":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida.")
+
+
