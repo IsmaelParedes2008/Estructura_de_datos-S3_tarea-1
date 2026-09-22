@@ -80,3 +80,79 @@ while True:
 
         case _:
             print("Opción inválida. Intente de nuevo.")
+
+#EJERCICIO SIMILAR
+"""GESTOR DE PRODUCTOS
+
+Crear una clase Productos que:
+
+agregar_producto(nombre, categoria) → guarde los datos en una lista de tuplas (nombre, categoria).
+productos_categoria(categoria) → retorne solamente los productos de esa categoría.
+eliminar_producto(nombre) → elimine el producto de la lista."""
+
+class Productos:
+    def __init__(self):
+        self.lista_productos = []
+
+    def agregar_producto(self, nombre, categoria):
+        self.lista_productos.append((nombre, categoria))
+
+    def productos_categoria(self, categoria):
+        lista_categoria = []
+
+        for nombre, cat in self.lista_productos:
+            if cat.lower() == categoria.lower():
+                lista_categoria.append((nombre, cat))
+
+        return lista_categoria
+
+    def eliminar_producto(self, nombre):
+        for producto in self.lista_productos:
+            if producto[0].lower() == nombre.lower():
+                self.lista_productos.remove(producto)
+                return True
+
+        return False
+
+resultado = Productos()
+
+while True:
+    print("\n=== GESTOR DE PRODUCTOS ===")
+    print("1. Agregar producto")
+    print("2. Buscar productos por categoría")
+    print("3. Eliminar producto")
+    print("4. Ver todos los productos")
+    print("5. Salir")
+
+    opcion = input("Ingrese una opción (1-5): ")
+
+    match opcion:
+        case "1":
+            nombre = input("Ingrese el nombre del producto: ")
+            categoria = input("Ingrese la categoría: ")
+
+            resultado.agregar_producto(nombre, categoria)
+            print("Producto agregado correctamente.")
+
+        case "2":
+            categoria = input("Ingrese la categoría: ")
+            productos = resultado.productos_categoria(categoria)
+            print(f"Productos encontrados: {productos}")
+
+        case "3":
+            nombre = input("Ingrese el producto a eliminar: ")
+
+            if resultado.eliminar_producto(nombre):
+                print("Producto eliminado correctamente.")
+            else:
+                print("Producto no encontrado.")
+
+        case "4":
+            print(f"Lista de productos: {resultado.lista_productos}")
+
+        case "5":
+            print("=== CERRANDO PROGRAMA ===")
+            break
+
+        case _:
+            print("Opción inválida.")
